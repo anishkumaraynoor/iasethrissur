@@ -9,7 +9,7 @@ const students = require('../models/studentModel')
 const csv = require('csvtojson')
 
 exports.importCSV = async(req,res)=>{
-    try {
+    
         var studentData = []
         csv()
         .fromFile(req.file.path)
@@ -23,11 +23,23 @@ exports.importCSV = async(req,res)=>{
                     admyear:response[x].admyear  
                 })
             }
-            await students.insertMany(studentData)
+            try {
+                await students.insertMany(studentData)
+                res.status(200).json(studentData)
+            } catch (error) {
+                res.status(400).json(error)
+            }
         })
-        res.send({status:200, success:true, msg:'running'})
+}
+
+
+exports.getByAdmNo = async(req,res)=>{
+    console.log("inside getByAdmNo");
+    const {pid} = req.params
+    try {
+        const studentDetails = await students.findOne({admnumber:pid})
+        res.status(200).json(studentDetails)
     } catch (error) {
-        res.send({status:400, success:false, msg:error.message})
+        res.status(401).json(error)
     }
-    
 }
