@@ -9,7 +9,7 @@ const students = require('../models/studentModel')
 const csv = require('csvtojson')
 
 exports.importCSV = async(req,res)=>{
-    
+    console.log("inside importCSV");
         var studentData = []
         csv()
         .fromFile(req.file.path)
@@ -36,6 +36,7 @@ exports.importCSV = async(req,res)=>{
 exports.getByAdmNo = async(req,res)=>{
     console.log("inside getByAdmNo");
     const {pid} = req.params
+    console.log(pid);
     try {
         const studentDetails = await students.findOne({admnumber:pid})
         res.status(200).json(studentDetails)
