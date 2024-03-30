@@ -7,26 +7,22 @@
 
 const mongoose = require('mongoose')
 const studentSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required: true
-    },
-    email:{
-        type:String,
-        required: true
-    },
-    admnumber:{
-        type:String,
-        required: true
-    },
-    class:{
-        type:String,
-        required: true    
-    },
-    admyear:{
-        type:String,
-        required: true 
-    }
+    admno:{type:String,required: true},
+    admyear:{type:String,required: true},
+    admdate:{type:String,required: true},
+    name:{type:String, required: true},
+    gender:{type:String, required: true},
+    dob:{type:String, required: true},
+    religion:{type:String, required: true},
+    caste:{type:String, required: true},
+    category:{type:String, required: true},
+    admcategory:{type:String, required: true},
+    email:{type:String,required: true},
+    mob:{type:String, required: true}, 
+    class:{type:String,required: true},
+    subject:{type:String,required: true},
+    feepaid:{type:String,required: true},
+    mandatorypaid:{type:String,required: true}
 })
 
 const students = mongoose.model("students", studentSchema)

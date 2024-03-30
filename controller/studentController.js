@@ -16,11 +16,22 @@ exports.importCSV = async(req,res)=>{
         .then(async(response)=>{
             for(var x=0; x<response.length; x++){
                 studentData.push({
+                    admno:response[x].admno,
+                    admyear:response[x].admyear,
+                    admdate:response[x].admdate,
                     name:response[x].name,
+                    gender:response[x].gender,
+                    dob:response[x].dob,
+                    religion:response[x].religion,
+                    caste:response[x].caste,
+                    category:response[x].admdate,
+                    admcategory:response[x].name,
                     email:response[x].email,
-                    admnumber:response[x].admnumber,
+                    mob:response[x].mob,
                     class:response[x].class,
-                    admyear:response[x].admyear  
+                    subject:response[x].subject,
+                    feepaid:response[x].feepaid,
+                    mandatorypaid:response[x].mandatorypaid  
                 })
             }
             try {
@@ -38,7 +49,7 @@ exports.getByAdmNo = async(req,res)=>{
     const {pid} = req.params
     console.log(pid);
     try {
-        const studentDetails = await students.findOne({admnumber:pid})
+        const studentDetails = await students.findOne({admno:pid})
         res.status(200).json(studentDetails)
     } catch (error) {
         res.status(401).json(error)
