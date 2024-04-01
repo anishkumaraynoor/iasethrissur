@@ -22,7 +22,9 @@ const studentSchema = new mongoose.Schema({
     class:{type:String,required: true},
     subject:{type:String,required: true},
     feepaid:{type:String,required: true},
-    mandatorypaid:{type:String,required: true}
+    mandatorypaid:{type:String,required: true},
+    tcno:{type:String},
+    tcdate:{type:String}
 })
 
 const students = mongoose.model("students", studentSchema)

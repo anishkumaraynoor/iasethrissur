@@ -1,4 +1,6 @@
-admno,admyear,admdate,name,gender,dob,religion,caste,category,admcategory,email,mob,class,subject,feepaid,mandatorypaid
-101,2023,2024-03-12,Sumayya,F,1998-05-21,Islam,Muslim,Muslim,Muslim,sumayya@gmail.com,6754673421,I Phd,Education,4500,500
-102,2023,2024-03-12,Neethu,F,1997-04-15,Hindu,Pulaya,SC,SC,neetu@gmail.com,3452178249,I Phd,Education,0,500
-103,2023,2024-03-12,Roopa,F,1990-02-25,Hindu,Ezhava,OBC,OBC,roopa@gmail.com,4563258975,I Phd,Education,4500,500
+admno,admyear,admdate,name,gender,dob,religion,caste,category,admcategory,email,mob,class,subject,feepaid,mandatorypaid,tcno,tcdate
+101,2023,2024-03-12,Sumayya,F,1998-05-21,Islam,Muslim,Muslim,Muslim,sumayya@gmail.com,6754673421,I PhD,Education,4500,500,110/2022-23,2023-04-10
+102,2023,2024-03-12,Neethu,F,1997-04-15,Hindu,Pulaya,SC,SC,neetu@gmail.com,3452178249,I PhD,Education,0,500,241/2022-23,2022-07-10
+103,2023,2024-03-12,Roopa,F,1990-02-25,Hindu,Ezhava,OBC,OBC,roopa@gmail.com,4563258975,I PhD,Education,4500,500,125/2023-24,2023-07-05
+104,2023,2024-03-12,Sumay,F,1998-05-21,Islam,Muslim,Muslim,Muslim,sumayya@gmail.com,6754673421,I PhD,Education,4500,500,115/2023-24,2023-06-11
+105,2023,2024-03-12,Neet,F,1997-04-15,Hindu,Pulaya,SC,SC,neetu@gmail.com,3452178249,I PhD,Education,0,500,120/2022-23,2022-06-02

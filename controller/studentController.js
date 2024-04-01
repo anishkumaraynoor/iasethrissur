@@ -31,7 +31,9 @@ exports.importCSV = async(req,res)=>{
                     class:response[x].class,
                     subject:response[x].subject,
                     feepaid:response[x].feepaid,
-                    mandatorypaid:response[x].mandatorypaid  
+                    mandatorypaid:response[x].mandatorypaid,
+                    tcno:response[x].tcno,
+                    tcdate:response[x].tcdate  
                 })
             }
             try {
@@ -48,7 +50,25 @@ exports.getByAdmNo = async(req,res)=>{
     console.log("inside getByAdmNo");
     const {pid} = req.params
     console.log(pid);
+    let year = new Date('2024-05-01').getFullYear()
+    let month = new Date('2024-05-01').getMonth()+1
+    let academicYear = ""
+    if(month>5){
+        academicYear = `${year}-${(year+1+'').slice(2)}`
+    }else{
+        academicYear = `${year-1}-${(year+'').slice(2)}`
+    }
+    console.log(academicYear);
     try {
+        const allStudents = await students.find()
+        let lastTcNo = allStudents.filter(a=>a.tcno.slice(-7)==academicYear).map(a=>a.tcno.slice(0,3)).sort((a,b)=>b-a)[0]
+        let nextTcNo = ''
+        if(lastTcNo==''){
+            nextTcNo = 1
+        }else{
+            nextTcNo = Number(lastTcNo)+1
+        }
+        console.log(nextTcNo);
         const studentDetails = await students.findOne({admno:pid})
         res.status(200).json(studentDetails)
     } catch (error) {
