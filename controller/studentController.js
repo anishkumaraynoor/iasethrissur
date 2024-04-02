@@ -50,8 +50,8 @@ exports.getByAdmNo = async(req,res)=>{
     console.log("inside getByAdmNo");
     const {pid} = req.params
     console.log(pid);
-    let year = new Date('2024-05-01').getFullYear()
-    let month = new Date('2024-05-01').getMonth()+1
+    let year = new Date().getFullYear()
+    let month = new Date().getMonth()+1
     let academicYear = ""
     if(month>5){
         academicYear = `${year}-${(year+1+'').slice(2)}`
@@ -61,16 +61,35 @@ exports.getByAdmNo = async(req,res)=>{
     console.log(academicYear);
     try {
         const allStudents = await students.find()
-        let lastTcNo = allStudents.filter(a=>a.tcno.slice(-7)==academicYear).map(a=>a.tcno.slice(0,3)).sort((a,b)=>b-a)[0]
-        let nextTcNo = ''
+        let lastTcNo = allStudents.filter(a=>a.tcno.slice(-7)==academicYear)
+        let nextTcNo = 0
         if(lastTcNo==''){
             nextTcNo = 1
         }else{
-            nextTcNo = Number(lastTcNo)+1
+            nextTcNo = Number(lastTcNo.map(a=>a.tcno.slice(0,3)).sort((a,b)=>b-a)[0])+1
         }
         console.log(nextTcNo);
-        const studentDetails = await students.findOne({admno:pid})
+        let studentDetails = await students.findOne({admno:pid})
+        studentDetails = studentDetails.toJSON()
+        studentDetails.nextTcNo = nextTcNo+'/'+academicYear
+        console.log(studentDetails);
         res.status(200).json(studentDetails)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}
+
+
+exports.updateStudent = async(req,res)=>{
+    console.log("Inside update student")
+    const {pid} = req.params
+    const {tcno, tcdate} = req.body
+    try {
+        const updatedStudent = await students.findByIdAndUpdate({_id:pid},{
+            tcno, tcdate
+        },{new:true})
+        await updatedStudent.save()
+        res.status(200).json(updatedStudent)
     } catch (error) {
         res.status(401).json(error)
     }
