@@ -13,7 +13,9 @@ const router = new express.Router()
 
 router.post('/importCSV',multerConfig.single('file'),studentController.importCSV)
 router.get('/getByAdmNo/:pid',studentController.getByAdmNo)
+router.get('/getAllStudents',studentController.getAllStudents)
 router.put('/updateStudent/:pid',studentController.updateStudent)
+
 
 
 module.exports = router

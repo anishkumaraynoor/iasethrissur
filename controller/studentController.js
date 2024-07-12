@@ -19,13 +19,14 @@ exports.importCSV = async(req,res)=>{
                     admno:response[x].admno,
                     admyear:response[x].admyear,
                     admdate:response[x].admdate,
+                    leftdate:response[x].leftdate,
                     name:response[x].name,
                     gender:response[x].gender,
                     dob:response[x].dob,
                     religion:response[x].religion,
                     caste:response[x].caste,
-                    category:response[x].admdate,
-                    admcategory:response[x].name,
+                    category:response[x].category,
+                    admcategory:response[x].admcategory,
                     email:response[x].email,
                     mob:response[x].mob,
                     class:response[x].class,
@@ -62,18 +63,38 @@ exports.getByAdmNo = async(req,res)=>{
     try {
         const allStudents = await students.find()
         let lastTcNo = allStudents.filter(a=>a.tcno.slice(-7)==academicYear)
+        console.log(lastTcNo);
         let nextTcNo = 0
         if(lastTcNo==''){
             nextTcNo = 1
         }else{
-            nextTcNo = Number(lastTcNo.map(a=>a.tcno.slice(0,3)).sort((a,b)=>b-a)[0])+1
+            nextTcNo = Number(lastTcNo.map(a=>a.tcno.slice(0,-8)).sort((a,b)=>b-a)[0])+1
         }
         console.log(nextTcNo);
-        let studentDetails = await students.findOne({admno:pid})
+        console.log(pid.length);
+        let studentDetails = ""
+        if(pid.length>9){
+            studentDetails = await students.findOne({mob:pid})
+        }else{
+            studentDetails = await students.findOne({admno:pid})
+        }
+        
         studentDetails = studentDetails.toJSON()
         studentDetails.nextTcNo = nextTcNo+'/'+academicYear
         console.log(studentDetails);
         res.status(200).json(studentDetails)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}
+
+
+exports.getAllStudents = async(req,res)=>{
+    console.log("inside get all students");
+    try {
+        const allStudents = await students.find()
+        console.log(allStudents);
+        res.status(200).json(allStudents)
     } catch (error) {
         res.status(401).json(error)
     }
@@ -94,3 +115,4 @@ exports.updateStudent = async(req,res)=>{
         res.status(401).json(error)
     }
 }
+

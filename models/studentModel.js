@@ -10,6 +10,7 @@ const studentSchema = new mongoose.Schema({
     admno:{type:String,required: true},
     admyear:{type:String,required: true},
     admdate:{type:String,required: true},
+    leftdate:{type:String,required: true},
     name:{type:String, required: true},
     gender:{type:String, required: true},
     dob:{type:String, required: true},

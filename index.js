@@ -20,7 +20,7 @@ expressServer.use('/uploads', express.static('./uploads'))
 expressServer.use(router)
 
 
-const PORT = 3001
+const PORT = 3001 || process.env.PORT
 expressServer.listen(PORT, ()=>{
     console.log(`started ${PORT}`);
 })
